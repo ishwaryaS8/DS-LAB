@@ -1,0 +1,121 @@
+#include <stdio.h>
+
+#define MAX 100
+
+int list[MAX];
+int size = 0;
+
+void insert(int pos, int value)
+{
+    int i;
+
+    if (size == MAX)
+    {
+        printf("List is full\n");
+        return;
+    }
+
+    if (pos < 0 || pos > size)
+    {
+        printf("Invalid position\n");
+        return;
+    }
+
+    for (i = size; i > pos; i--)
+        list[i] = list[i - 1];
+
+    list[pos] = value;
+    size++;
+
+    printf("Element inserted successfully\n");
+}
+
+void delete(int pos)
+{
+    int i;
+
+    if (size == 0)
+    {
+        printf("List is empty\n");
+        return;
+    }
+
+    if (pos < 0 || pos >= size)
+    {
+        printf("Invalid position\n");
+        return;
+    }
+
+    for (i = pos; i < size - 1; i++)
+        list[i] = list[i + 1];
+
+    size--;
+
+    printf("Element deleted successfully\n");
+}
+
+void display()
+{
+    int i;
+
+    if (size == 0)
+    {
+        printf("List is empty\n");
+        return;
+    }
+
+    printf("List elements: ");
+
+    for (i = 0; i < size; i++)
+        printf("%d ", list[i]);
+
+    printf("\n");
+}
+
+int main()
+{
+    int choice, pos, value;
+
+    while (1)
+    {
+        printf("\n--- List ADT ---\n");
+        printf("1. Insert\n");
+        printf("2. Delete\n");
+        printf("3. Display\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                printf("Enter position: ");
+                scanf("%d", &pos);
+
+                printf("Enter value: ");
+                scanf("%d", &value);
+
+                insert(pos, value);
+                break;
+
+            case 2:
+                printf("Enter position: ");
+                scanf("%d", &pos);
+
+                delete(pos);
+                break;
+
+            case 3:
+                display();
+                break;
+
+            case 4:
+                return 0;
+
+            default:
+                printf("Invalid choice\n");
+        }
+    }
+
+    return 0;
+}
