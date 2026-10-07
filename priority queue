@@ -1,0 +1,83 @@
+#include <stdio.h>
+
+#define MAX 5
+
+int queue[MAX];
+int priority[MAX];
+int size = 0;
+
+void insert(int data, int p)
+{
+    if (size == MAX)
+    {
+        printf("Queue is Full\n");
+        return;
+    }
+
+    queue[size] = data;
+    priority[size] = p;
+    size++;
+
+    printf("Element inserted successfully\n");
+}
+
+void delete()
+{
+    int i, pos = 0;
+
+    if (size == 0)
+    {
+        printf("Queue is Empty\n");
+        return;
+    }
+
+    for (i = 1; i < size; i++)
+    {
+        if (priority[i] < priority[pos])
+            pos = i;
+    }
+
+    printf("Deleted element: %d\n", queue[pos]);
+
+    for (i = pos; i < size - 1; i++)
+    {
+        queue[i] = queue[i + 1];
+        priority[i] = priority[i + 1];
+    }
+
+    size--;
+}
+
+void display()
+{
+    int i;
+
+    if (size == 0)
+    {
+        printf("Queue is Empty\n");
+        return;
+    }
+
+    printf("Priority Queue:\n");
+
+    for (i = 0; i < size; i++)
+    {
+        printf("Element = %d, Priority = %d\n",
+               queue[i], priority[i]);
+    }
+}
+
+int main()
+{
+    insert(10, 2);
+    insert(20, 1);
+    insert(30, 3);
+
+    display();
+
+    delete();
+
+    display();
+
+    return 0;
+}
